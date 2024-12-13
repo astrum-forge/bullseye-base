@@ -1,15 +1,16 @@
-FROM debian:11.11-slim
+FROM debian:bullseye-slim
 
 LABEL MAINTAINER="Astrum Forge Studios (https://www.astrumforge.com)"
 
-# Allow specifying USD version at build-time:
-ENV DEBIAN_VERSION=11.11
-ENV CMAKE_VERSION="3.31.1"
+# Allow specifying CMAKE version at build-time
+ARG CMAKE_VERSION=3.31.1
+ENV CMAKE_VERSION="${USD_VERSION}"
 
 WORKDIR /usr
 
 # Install prerequisites for downloading, compiling and installing cmake
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	ca-certificates \
 	wget \
 	build-essential \
 	checkinstall \
@@ -24,6 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	cd ../ rm -rf && cmake-${CMAKE_VERSION} && \
 	# Remove packages not needed anymore
 	apt-get purge -y git \
+	ca-certificates \
 	build-essential \
 	wget \
 	checkinstall \

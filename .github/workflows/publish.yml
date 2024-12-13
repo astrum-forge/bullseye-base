@@ -28,6 +28,7 @@ jobs:
       - name: build & upload
         run: |
           docker buildx build \
+          --build-arg CMAKE_VERSION=${{ env.RELEASE_VERSION }} \
           --push \
           --tag astrumforge/bullseye-base:v-${{ env.RELEASE_VERSION }}-amd64 \
           --platform linux/amd64 \
@@ -56,6 +57,7 @@ jobs:
       - name: build & upload
         run: |
           docker buildx build \
+          --build-arg CMAKE_VERSION=${{ env.RELEASE_VERSION }} \
           --push \
           --tag astrumforge/bullseye-base:v-${{ env.RELEASE_VERSION }}-arm64 \
           --platform linux/arm64 \
