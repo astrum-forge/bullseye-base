@@ -4,7 +4,7 @@ LABEL MAINTAINER="Astrum Forge Studios (https://www.astrumforge.com)"
 
 # Allow specifying CMAKE version at build-time
 ARG CMAKE_VERSION=3.31.1
-ENV CMAKE_VERSION="${USD_VERSION}"
+ENV CMAKE_VERSION="${CMAKE_VERSION}"
 
 WORKDIR /usr
 
