@@ -24,8 +24,10 @@ jobs:
       - name: build & upload
         run: |
           docker buildx build \
+          --no-cache \
           --build-arg CMAKE_VERSION=${{ env.RELEASE_VERSION }} \
           --push \
+          --output=type=image \
           --tag astrumforge/bullseye-base:${{ env.RELEASE_VERSION }}-amd64 \
           --platform linux/amd64 \
           --file Dockerfile .
@@ -51,8 +53,10 @@ jobs:
       - name: build & upload
         run: |
           docker buildx build \
+          --no-cache \
           --build-arg CMAKE_VERSION=${{ env.RELEASE_VERSION }} \
           --push \
+          --output=type=image \
           --tag astrumforge/bullseye-base:${{ env.RELEASE_VERSION }}-arm64 \
           --platform linux/arm64 \
           --file Dockerfile .
