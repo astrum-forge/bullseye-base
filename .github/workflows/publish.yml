@@ -21,14 +21,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64
-          push: true
-          tags: astrumforge/bullseye-base:${{ env.RELEASE_VERSION }}-amd64
-          build-args: CMAKE_VERSION=${{ env.RELEASE_VERSION }}
+      - name: build & upload
+        run: |
+          docker buildx build \
+          --build-arg CMAKE_VERSION=${{ env.RELEASE_VERSION }} \
+          --push \
+          --tag astrumforge/bullseye-base:${{ env.RELEASE_VERSION }}-amd64 \
+          --platform linux/amd64 \
+          --file Dockerfile .
   build-arm64:
     runs-on: ubuntu-latest
     timeout-minutes: 360
@@ -48,14 +48,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/arm64
-          push: true
-          tags: astrumforge/bullseye-base:${{ env.RELEASE_VERSION }}-arm64
-          build-args: CMAKE_VERSION=${{ env.RELEASE_VERSION }}
+      - name: build & upload
+        run: |
+          docker buildx build \
+          --build-arg CMAKE_VERSION=${{ env.RELEASE_VERSION }} \
+          --push \
+          --tag astrumforge/bullseye-base:${{ env.RELEASE_VERSION }}-arm64 \
+          --platform linux/arm64 \
+          --file Dockerfile .
   build-manifest:
     runs-on: ubuntu-latest
     timeout-minutes: 360
