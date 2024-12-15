@@ -35,6 +35,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          push: true
           platforms: linux/amd64
           tags: |
             astrumforge/bullseye-base:latest-amd64
@@ -69,6 +70,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          push: true
           file: ./Dockerfile
           platforms: linux/arm64
           tags: |
