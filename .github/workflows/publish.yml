@@ -15,6 +15,8 @@ jobs:
           - linux/amd64
           - linux/arm64
     steps:
+      - name: set version from tag
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: prepare
         run: |
           platform=${{ matrix.platform }}
@@ -39,6 +41,7 @@ jobs:
         with:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: CMAKE_VERSION=${{ env.RELEASE_VERSION }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
       - name: export digest
         run: |
